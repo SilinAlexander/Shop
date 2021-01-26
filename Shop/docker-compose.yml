@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    #entrypoint: /entrypoint.sh
+    command: python manage.py runserver 0.0.0.0:8000
+    restart: always
+  database:
+    image: postgres:12.0-alpine
+    hostname: postgres
+    volumes:
+      - database:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+
+
+volumes:
+  database:
