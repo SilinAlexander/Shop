@@ -1,16 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import GenericForeignKey
-from PIL import Image
 from django.urls import reverse, reverse_lazy
-from io import BytesIO
-from django.core.files.uploadedfile import InMemoryUploadedFile
-import sys
-
 from django.utils.text import slugify
 
-from cart.models import Cart
 
 User = get_user_model()
 

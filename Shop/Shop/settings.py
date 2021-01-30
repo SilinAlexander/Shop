@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'mainapp',
     'userprofile',
     'cart',
+    'django_countries',
 
 ]
 SITE_ID = 1

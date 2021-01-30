@@ -31,16 +31,14 @@ class Cart:
     def delete(self, product_id, qty=1):
         product_price = Product.objects.get(id=product_id).price
         product_id = str(product_id)
-        print(product_id)
         if product_id in self.cart:
-            # self.cart[product_id] = {'quantity': qty, 'price': str(product_price)}
+            self.cart[product_id] = {'quantity': qty, 'price': str(product_price)}
             del self.cart[product_id]
-            # qty = int(self.cart[product_id]['quantity']) - int(qty)
-            # self.cart[product_id]['quantity'] = qty
             self.save()
-            print(self.cart)
 
     def update(self, product_id, qty=1):
+        product_id = str(product_id)
+        self.cart[product_id]['quantity'] = qty
 
         self.save()
 

@@ -66,7 +66,7 @@ class CartView(View):
         return render(request, 'cart.html', context)
 
 
-class AddToCartView(CartMixin, View):
+class AddToCartView(View):
 
     def post(self, request, *args, **kwargs):
 
@@ -83,9 +83,9 @@ class AddToCartView(CartMixin, View):
         return get_object_or_404(Product, slug=self.kwargs.get('slug'))
 
 
-class DeleteFromCartView(CartMixin, View):
+class DeleteFromCartView(View):
 
-    def post(self, request, slug, *args, **kwargs):
+    def get(self, request, slug, *args, **kwargs):
         # ct_model, product_slug = kwargs.get('ct_model'), kwargs.get('slug')
         # content_type = ContentType.objects.get(model=ct_model)
         # product = content_type.model_class().objects.get(slug=product_slug)
@@ -105,12 +105,9 @@ class DeleteFromCartView(CartMixin, View):
         return get_object_or_404(Product, slug=self.kwargs.get('slug'))
 
 
-class ChangeQTYView(CartMixin, View):
+class ChangeQTYView(View):
 
     def post(self, request, *args, **kwargs):
-        ct_model, product_slug = kwargs.get('ct_model'), kwargs.get('slug')
-        content_type = ContentType.objects.get(model=ct_model)
-        product = content_type.model_class().objects.get(slug=product_slug)
         # cart_product = CartProduct.objects.get(
         #     user=self.cart.owner, cart=self.cart, content_type=content_type, object_id=product.id
         # )
@@ -118,10 +115,14 @@ class ChangeQTYView(CartMixin, View):
         # cart_product.qty = qty
         # cart_product.save()
         # self.cart.save()
+        product = self.get_object()
         cart = SessionCart(request)
-        cart.update(product_id=product.id)
+        cart.update(product_id=product.id, qty=request.POST.get('qty'))
         messages.add_message(request, messages.INFO, "Кол-во успешно изменено")
         return HttpResponseRedirect('/cart/')
+
+    def get_object(self):
+        return get_object_or_404(Product, slug=self.kwargs.get('slug'))
 
 
 class UserSignUpView(SignupView):
