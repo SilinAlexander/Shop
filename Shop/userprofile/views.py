@@ -10,3 +10,11 @@ class UserProfileView(DetailView):
 
     def get_queryset(self):
         return User.objects.all().select_related('profile_set').prefetch_related('profile_set__address_set')
+
+    def get_context_data(self, **kwargs):
+        context = {
+            'profile': self.get_object()
+        }
+        return context
+
+
