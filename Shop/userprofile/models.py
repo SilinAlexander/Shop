@@ -22,3 +22,4 @@ class Address(models.Model):
     index = models.CharField(max_length=15, )
     recipient = models.CharField('full name', max_length=255, )
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='address_set')
+    objects = models.Manager()
