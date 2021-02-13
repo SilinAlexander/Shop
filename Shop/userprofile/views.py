@@ -51,7 +51,6 @@ class ChangePasswordView(PasswordChangeView):
     #template_name = "account/password_change." + app_settings.TEMPLATE_EXTENSION
     form_class = ChangePassword
 
-
     def get_success_url(self):
         return reverse_lazy('profile:profile', kwargs={'pk': self.kwargs.get('pk')})
 

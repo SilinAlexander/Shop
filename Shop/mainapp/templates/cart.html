@@ -47,6 +47,8 @@
                 <button class="btn btn-danger">Удалить из корзины</button>
 
             </a>
+
+
         </td>
 
     </tr>
@@ -59,6 +61,9 @@
         <td>Итого:</td>
         <td>{{ cart|length }}</td>
         <td><strong>{{ cart.get_final_price }} руб.</strong></td>
+        <a href="{% url 'order:create' %}">
+            <button class="btn btn-danger">Оформить заказ</button>
+        </a>
 
     </tr>
 
@@ -67,14 +72,3 @@
 
 {% endblock content %}
 
-<form action="{% url 'change_qty' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}"
-      method="POST">
-    {% csrf_token %}
-    <input type="number" class="form-control" name="qty" style="width: 70px;" min="1" value="{{ item.qty }}">
-    <br>
-    <input type="submit" class="btn btn-primary" value="Изменить кол-во">
-</form>
-
-<a href="{% url 'delete_from_cart' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}">
-    <button class="btn btn-danger">Удалить из корзины</button>
-</a>
