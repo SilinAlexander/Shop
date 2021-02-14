@@ -23,3 +23,7 @@ class Address(models.Model):
     recipient = models.CharField('full name', max_length=255, )
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='address_set')
     objects = models.Manager()
+
+    def __str__(self):
+        return "{country} - {city}".format(country=self.country, city=self.city)
+
